@@ -1,0 +1,31 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GodotJamToolkit"
+run/main_scene="res://demo/scene/loader/main.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+HSceneLoader="*res://addons/godot-jam-toolkit/scene/loader/hscene_loader.gd"
+HReferencer="*res://addons/godot-jam-toolkit/reference/hreferencer.gd"
+HSceneChanger="*res://addons/godot-jam-toolkit/scene/changer/hscene_changer.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-jam-toolkit/plugin.cfg", "res://addons/gut/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

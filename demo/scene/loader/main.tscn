@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://c1ivim1wc5j4q"]
+
+[ext_resource type="Script" path="res://demo/scene/loader/main.gd" id="1_yq6u1"]
+[ext_resource type="Texture2D" uid="uid://b0nwpo5aovwbg" path="res://demo/scene/loader/assets/run-1.png" id="2_uanle"]
+[ext_resource type="Texture2D" uid="uid://duss0k348jyj7" path="res://demo/scene/loader/assets/run-2.png" id="3_plyjw"]
+[ext_resource type="Texture2D" uid="uid://gtimg2v5hptv" path="res://demo/scene/loader/assets/run-3.png" id="4_ntjxv"]
+[ext_resource type="Texture2D" uid="uid://dxdlw41xcshm8" path="res://demo/scene/loader/assets/run-4.png" id="5_ibif7"]
+[ext_resource type="Texture2D" uid="uid://c01e31qmychrv" path="res://demo/scene/loader/assets/run-5.png" id="6_8ak7v"]
+[ext_resource type="Texture2D" uid="uid://xyqwlygybypb" path="res://demo/scene/loader/assets/run-6.png" id="7_ewo3q"]
+[ext_resource type="Texture2D" uid="uid://cf5ptyf0uvgmx" path="res://demo/scene/loader/assets/run-7.png" id="8_sp15y"]
+[ext_resource type="Texture2D" uid="uid://26xk1iqe8ena" path="res://demo/scene/loader/assets/run-8.png" id="9_8ynb0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ty7dg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uanle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_plyjw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ntjxv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ibif7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8ak7v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ewo3q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_sp15y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8ynb0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_yq6u1")
+metadata/_edit_vertical_guides_ = [-232.0]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.177
+offset_bottom = 3.304
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CenterContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LoadButton" type="Button" parent="UI/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Load ASYNC and instantiate SYNC"
+
+[node name="LoadInstantiateButton" type="Button" parent="UI/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Load ASYNC and instantiate ASYNC"
+
+[node name="ClearButton" type="Button" parent="UI/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Clear"
+
+[node name="ProgressLabel" type="Label" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(52, 48)
+sprite_frames = SubResource("SpriteFrames_ty7dg")
+frame_progress = 0.99072
+
+[connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/LoadInstantiateButton" to="." method="_on_load_instantiate_button_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
