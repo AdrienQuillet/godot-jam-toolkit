@@ -2,6 +2,7 @@
 extends EditorPlugin
 
 const SINGLETONS:Dictionary = {
+    "HReferencer" : "res://addons/godot-jam-toolkit/reference/hreferencer.gd",
     "HSceneLoader" : "res://addons/godot-jam-toolkit/scene_loader/hscene_loader.gd"
 }
 
