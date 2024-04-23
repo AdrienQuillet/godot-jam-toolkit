@@ -32,6 +32,19 @@ func test_objects_are_evicted() -> void:
     await wait_for_signal(_referencer.on_eviction, 10)
     assert_signal_emitted_with_parameters(_referencer, "on_eviction", [object])
 
+func test_manual_eviction() -> void:
+    var object := RefCounted.new()
+    _referencer.register(object, 1_000)
+    _referencer.unregister(object)
+    await wait_for_signal(_referencer.on_eviction, 10)
+    assert_signal_emitted_with_parameters(_referencer, "on_eviction", [object])
+
+func test_manual_eviction_not_triggered_for_unknown_objects() -> void:
+    var object := RefCounted.new()
+    _referencer.register(object, 1_000)
+    _referencer.unregister(RefCounted.new())
+    await wait_seconds(0.5)
+    assert_signal_not_emitted(_referencer, "on_eviction")
 
 #------------------------------------------
 # Private behavior

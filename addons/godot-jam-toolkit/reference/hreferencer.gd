@@ -70,6 +70,12 @@ func register(object:Variant, expires_in:float) -> void:
         _registered_objects[object] = expires_at
         emit_signal.call_deferred("on_registered", object, expires_at)
 
+## Unregister an object immediatly, before it's expiration
+func unregister(object:Variant) -> void:
+    var expiration_time = _registered_objects.erase(object)
+    if expiration_time:
+        emit_signal.call_deferred("on_eviction", object)
+
 #------------------------------------------
 # Private functions
 #------------------------------------------
