@@ -443,7 +443,12 @@ func _populate_method_tweener(tween:Tween, animation:HTweenAnimation) -> void:
         tweener.as_relative()
 
 func _populate_property_tweener(tween:Tween, animation:HTweenAnimation) -> void:
-    var tweener:PropertyTweener = tween.tween_property(get_node(animation.property_object), animation.property_property, str_to_var(animation.property_final_value), animation.property_duration)
+    var object:Object
+    if animation._property_object != null:
+        object = animation._property_object
+    else:
+        object = get_node(animation.property_object)
+    var tweener:PropertyTweener = tween.tween_property(object, animation.property_property, str_to_var(animation.property_final_value), animation.property_duration)
     tweener.set_delay(animation.property_delay)
     tweener.set_ease(_convert_ease(ease) if animation.property_ease == EaseType.INHERIT else _convert_ease(animation.property_ease))
     tweener.set_trans(_convert_trans(trans) if animation.property_trans == TransitionType.INHERIT else _convert_trans(animation.property_trans))

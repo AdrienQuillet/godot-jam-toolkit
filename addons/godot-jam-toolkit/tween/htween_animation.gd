@@ -157,6 +157,8 @@ class_name HTweenAnimation
 var _callback_callable
 # Internal usage with builder, since most callable from code do no concern Node
 var _method_callable
+# Internal usage with builder, since most callable from code do no concern Node
+var _property_object
 
 #------------------------------------------
 # Godot override functions

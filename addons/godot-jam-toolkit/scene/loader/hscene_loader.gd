@@ -9,7 +9,7 @@ extends Node
 # Constants
 #------------------------------------------
 
-const DEFAULT_THREAD_POOL_SIZE:int = 2
+const DEFAULT_THREAD_POOL_SIZE:int = 1
 
 #------------------------------------------
 # Signals
@@ -44,7 +44,7 @@ signal on_scene_instantiation_failed(scene_path:String)
 # Scenes that are loading asynchronously
 var _loading_scenes:Dictionary = {}
 # Pool of threads to load scenes
-var _thread_pool:HThreadPool = HThreadPool.new(DEFAULT_THREAD_POOL_SIZE)
+var _thread_pool:HThreadPool = HThreadPool.new(DEFAULT_THREAD_POOL_SIZE, false)
 
 #------------------------------------------
 # Godot override functions

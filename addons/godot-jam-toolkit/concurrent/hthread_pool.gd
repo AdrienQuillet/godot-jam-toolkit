@@ -44,13 +44,19 @@ var _semaphore:Semaphore
 # Godot override functions
 #------------------------------------------
 
-func _init(thread_count:int) -> void:
+func _init(thread_count:int, thread_safety:bool = true) -> void:
     _threads.resize(max(1, thread_count))
     _mutex = Mutex.new()
     _semaphore = Semaphore.new()
     for i in range(_threads.size()):
         _threads[i] = Thread.new()
         _threads[i].start(_run.bind(_threads[i]))
+    if not thread_safety:
+        execute(func():
+            _mutex.lock()
+            for t in _threads:
+                t.set_thread_safety_checks_enabled(false)
+            _mutex.unlock())
 
 func _notification(what: int) -> void:
     if what == NOTIFICATION_PREDELETE:
