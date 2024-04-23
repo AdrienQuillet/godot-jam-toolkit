@@ -113,7 +113,7 @@ func _run(thread:Thread) -> void:
 
         if next_task:
             next_task.execute()
-            on_task_completed.emit()
+            emit_signal.call_deferred("on_task_completed")
         else:
             _semaphore.wait()
     _semaphore.post()

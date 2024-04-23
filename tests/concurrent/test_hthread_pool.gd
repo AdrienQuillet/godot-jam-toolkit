@@ -20,7 +20,10 @@ func test_can_execute_tasks() -> void:
     watch_signals(_pool)
     for i in 100:
         _pool.execute(func(): dict[i] = true)
-    await wait_seconds(5)
+    var try_count:int = 0
+    while get_signal_emit_count(_pool, "on_task_completed") != 100 and try_count < 15:
+        await wait_seconds(1)
+        try_count += 1
     assert_signal_emit_count(_pool, "on_task_completed", 100)
 
 func test_can_get_task_result_from_promise() -> void:
