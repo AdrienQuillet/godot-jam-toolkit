@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 HSceneLoader="*res://addons/godot-jam-toolkit/scene/loader/hscene_loader.gd"
 HReferencer="*res://addons/godot-jam-toolkit/reference/hreferencer.gd"
 HSceneChanger="*res://addons/godot-jam-toolkit/scene/changer/hscene_changer.gd"
+HAudioManager="*res://addons/godot-jam-toolkit/audio/haudio_manager.gd"
 
 [editor_plugins]
 
