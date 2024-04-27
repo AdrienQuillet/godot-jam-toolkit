@@ -49,7 +49,7 @@ func _init(name:String, id:int, parent_node:Node) -> void:
 #------------------------------------------
 
 func set_max_channel_count(max_channel_count:int) -> void:
-    _max_channel_count = clamp(max_channel_count, 0, 999999)
+    _max_channel_count = clamp(max_channel_count, 1, 999999)
     # Delete channel abode limit immédiatly
     if _max_channel_count != 0:
         for channel_id in _player_by_channel_id:

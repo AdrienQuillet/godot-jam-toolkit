@@ -44,7 +44,14 @@ func _ready() -> void:
 # Public functions
 #------------------------------------------
 
-## TODO channel limit
+## Modify the maximum number of channel that can exists in this bus. Default is [code]16[/code].
+## Channel count can not be lower than [code]1[/code].
+## [br]
+## If maximum number of channel is reached in a bus, and all channel are active, then it is not possible
+## to play audio anymore.
+func set_max_channel_count(bus_name:String, max_channel_count:int) -> void:
+    _get_bus_by_name(bus_name).set_max_channel_count(max_channel_count)
+
 
 ## Get the list of available output devices. See [method set_output_device] to modify the
 ## current output device.
