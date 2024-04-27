@@ -108,6 +108,17 @@ func set_playback_speed_scale(scale:float) -> void:
 func is_playing(bus_name:String, channel_index:int = -1) -> bool:
     return _get_bus_by_name(bus_name).is_playing(channel_index)
 
+## Play the given audio resource in the specified bus.
+## [br][br]
+## If [code]fade_in[/code] is greater than 0, a fade in effect is applied for the given time.
+## [br][br]
+## If [code]channel_index[/code] is specified, the audio stream is played on the specific channel, otherwise it is
+## played on the first available channel of this bus. If no channel is available, a new channel is created if
+## channel limit is not reached. Playing on an active channel make the previous audio stream stop immediately,
+## without fade out effect.
+func play(bus_name:String, audio_path:String, fade_in:float = 0.0, channel_index:int = -1) -> void:
+    play_audio(bus_name, load(audio_path), fade_in, channel_index)
+
 ## Play the given [AudioStream] in the specified bus.
 ## [br][br]
 ## If [code]fade_in[/code] is greater than 0, a fade in effect is applied for the given time.
