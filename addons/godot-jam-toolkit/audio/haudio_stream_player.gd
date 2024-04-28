@@ -60,7 +60,7 @@ func play(audio:AudioStream, fade_in:float) -> void:
     fade_in = max(0.0, fade_in)
     _available = false
     _player_node.stream = audio
-    if not is_zero_approx(fade_in):
+    if is_zero_approx(fade_in):
         set_volume(1.0)
     else:
         set_volume(0.0)
