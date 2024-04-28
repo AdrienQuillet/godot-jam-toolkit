@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://7jg3u6nuwcit"
+path="res://.godot/imported/After the End.mp3-4be925fdcacd484537e418827922bc20.mp3str"
+
+[deps]
+
+source_file="res://demo/audio/assets/After the End.mp3"
+dest_files=["res://.godot/imported/After the End.mp3-4be925fdcacd484537e418827922bc20.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

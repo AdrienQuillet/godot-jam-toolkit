@@ -1,0 +1,232 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7m5ldme3mj4v"]
+
+[ext_resource type="Script" path="res://demo/audio/main.gd" id="1_a4ea1"]
+
+[node name="Main" type="CanvasLayer"]
+script = ExtResource("1_a4ea1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LeftContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DeviceContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DeviceLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/DeviceContainer"]
+layout_mode = 2
+text = "Device:  "
+
+[node name="DeviceListOption" type="OptionButton" parent="MarginContainer/HBoxContainer/LeftContainer/DeviceContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VolumesLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+text = "Volumes"
+horizontal_alignment = 1
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/MasterVolumeContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Master: "
+
+[node name="MasterVolumeSlider" type="HSlider" parent="MarginContainer/HBoxContainer/LeftContainer/MasterVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MasterVolumeValueLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/MasterVolumeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "1.0"
+horizontal_alignment = 2
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+
+[node name="SFXVolumeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/SFXVolumeContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "SFX:"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="MarginContainer/HBoxContainer/LeftContainer/SFXVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXVolumeValueLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/SFXVolumeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "1.0"
+horizontal_alignment = 2
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+
+[node name="MusicVolumeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/MusicVolumeContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Music:"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="MarginContainer/HBoxContainer/LeftContainer/MusicVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicVolumeValueLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/MusicVolumeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "1.0"
+horizontal_alignment = 2
+
+[node name="UIVolumeContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+
+[node name="UIVolumeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/UIVolumeContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "UI:"
+
+[node name="UIVolumeSlider" type="HSlider" parent="MarginContainer/HBoxContainer/LeftContainer/UIVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="UIVolumeValueLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/UIVolumeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "1.0"
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlaybackLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+text = "Playback"
+horizontal_alignment = 1
+
+[node name="PlaybackSpeedContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+
+[node name="PlaybackSpeedLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/PlaybackSpeedContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Speed Scale:"
+
+[node name="PlaybackSpeedSlider" type="HSlider" parent="MarginContainer/HBoxContainer/LeftContainer/PlaybackSpeedContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="PlaybackSpeedValueLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/PlaybackSpeedContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "1.0"
+horizontal_alignment = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlayLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+text = "Play"
+horizontal_alignment = 1
+
+[node name="FadeContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+
+[node name="FadeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/FadeContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Fade:"
+
+[node name="FadeSlider" type="HSlider" parent="MarginContainer/HBoxContainer/LeftContainer/FadeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 3.0
+step = 0.01
+value = 1.5
+
+[node name="FadeValueLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer/FadeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "1.5"
+horizontal_alignment = 2
+
+[node name="MusicContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayMusic1Button" type="Button" parent="MarginContainer/HBoxContainer/LeftContainer/MusicContainer"]
+layout_mode = 2
+text = "Play Music 1"
+
+[node name="PlayMusic2Button" type="Button" parent="MarginContainer/HBoxContainer/LeftContainer/MusicContainer"]
+layout_mode = 2
+text = "Play Music 2
+"
+
+[node name="StopMusicButton" type="Button" parent="MarginContainer/HBoxContainer/LeftContainer/MusicContainer"]
+layout_mode = 2
+text = "Stop"
+
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/LeftContainer/DeviceContainer/DeviceListOption" to="." method="_on_device_list_option_item_selected"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftContainer/SFXVolumeContainer/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftContainer/MusicVolumeContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftContainer/UIVolumeContainer/UIVolumeSlider" to="." method="_on_ui_volume_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftContainer/PlaybackSpeedContainer/PlaybackSpeedSlider" to="." method="_on_playback_speed_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftContainer/FadeContainer/FadeSlider" to="." method="_on_fade_slider_value_changed"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic1Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic1Button" to="." method="_on_play_music_1_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic1Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic2Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic2Button" to="." method="_on_play_music_2_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic2Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/StopMusicButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/StopMusicButton" to="." method="_on_stop_music_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/StopMusicButton" to="." method="_on_button_pressed"]

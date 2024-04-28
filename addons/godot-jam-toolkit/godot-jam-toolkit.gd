@@ -4,7 +4,8 @@ extends EditorPlugin
 const SINGLETONS:Dictionary = {
     "HReferencer" : "res://addons/godot-jam-toolkit/reference/hreferencer.gd",
     "HSceneLoader" : "res://addons/godot-jam-toolkit/scene/loader/hscene_loader.gd",
-    "HSceneChanger" : "res://addons/godot-jam-toolkit/scene/changer/hscene_changer.gd"
+    "HSceneChanger" : "res://addons/godot-jam-toolkit/scene/changer/hscene_changer.gd",
+    "HAudioManager" : "res://addons/godot-jam-toolkit/audio/haudio_manager.gd"
 }
 
 func _enter_tree() -> void:
