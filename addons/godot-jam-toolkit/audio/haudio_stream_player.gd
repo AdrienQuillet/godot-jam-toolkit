@@ -28,7 +28,7 @@ var _player_node:Node
 # Is this player available or not
 var _available:bool = true
 # Tween use to fade in the player volume DB on play
-var _fade_in_tween:Tween
+var _fade_tween:Tween
 
 #------------------------------------------
 # Godot override functions
@@ -64,21 +64,21 @@ func play(audio:AudioStream, fade_in:float) -> void:
         set_volume(1.0)
     else:
         set_volume(0.0)
-        _fade_in_tween = _player_node.create_tween()
-        _fade_in_tween.tween_method(set_volume, 0.0, 1.0, fade_in)
+        _fade_tween = _player_node.create_tween()
+        _fade_tween.tween_method(set_volume, 0.0, 1.0, fade_in)
     _player_node.play()
 
 func stop(fade_out:float) -> void:
-    if _fade_in_tween:
-        _fade_in_tween.stop()
-        _fade_in_tween.kill()
-        _fade_in_tween = null
+    if _fade_tween:
+        _fade_tween.stop()
+        _fade_tween.kill()
+        _fade_tween = null
     if is_zero_approx(fade_out):
         _do_stop_player_and_make_available()
     else:
-        _fade_in_tween = _player_node.create_tween()
-        _fade_in_tween.tween_method(set_volume, 1.0, 0.0, fade_out)
-        _fade_in_tween.finished.connect(_do_stop_player_and_make_available)
+        _fade_tween = _player_node.create_tween()
+        _fade_tween.tween_method(set_volume, get_volume(), 0.0, fade_out)
+        _fade_tween.finished.connect(_do_stop_player_and_make_available)
 
 func destroy() -> void:
     stop(0.0)

@@ -92,7 +92,7 @@ func set_volume(volume_percent:float, channel_index:int) -> void:
 
 func get_volume(channel_index:int = -1) -> float:
     if channel_index == -1:
-        return AudioServer.get_bus_volume_db(_bus_id)
+        return db_to_linear(AudioServer.get_bus_volume_db(_bus_id))
     else:
         return _get_player(channel_index).get_volume()
 

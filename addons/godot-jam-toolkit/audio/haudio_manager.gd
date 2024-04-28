@@ -139,6 +139,10 @@ func play_audio(bus_name:String, audio:AudioStream, fade_in:float = 0.0, channel
 func stop_audio(bus_name:String, fade_out:float = 0.0, channel_index:int = -1) -> void:
     _get_bus_by_name(bus_name).stop(fade_out, channel_index)
 
+## Stop all audio on all buses.
+func stop_all_audio(fade_out:float = 0.0) -> void:
+    for bus in _buses_by_name.values():
+        bus.stop(fade_out, -1)
 
 #------------------------------------------
 # Private functions
