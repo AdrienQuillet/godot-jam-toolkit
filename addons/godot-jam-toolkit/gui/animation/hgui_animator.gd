@@ -1,6 +1,10 @@
 extends Node
 class_name HGuiAnimator
 
+##
+## Utility node to animate multiple controls together to show/hide menus.
+##
+
 #------------------------------------------
 # Constants
 #------------------------------------------
@@ -11,17 +15,29 @@ const _META_SHOW_TWEEN:String = "__gui_animator_show_tween__"
 const _META_HIDE_TWEEN:String = "__gui_animator_hide_tween__"
 
 enum AnimationType {
+    ## Animation the alpha channel of modulation to create fade effect
     FADE = 0,
+    ## Scale up or down horizontaly and verticaly the control
     SCALE = 1,
+    ## Scale up or down horizontaly the control
     SCALE_HORIZONTAL = 2,
+    ## Scale up or down verticaly the control
     SCALE_VERTICAL = 3,
+    ## Move to/from the left side of the screen the control
     SLIDE_LEFT = 4,
+    ## Move to/from the right side of the screen the control
     SLIDE_RIGHT = 5,
+    ## Move to/from the top side of the screen the control
     SLIDE_TOP = 6,
+    ## Move to/from the bottom side of the screen the control
     SLIDE_BOTTOM = 7,
+    ## Move to/from the top left side of the screen the control
     SLIDE_TOP_LEFT = 8,
+    ## Move to/from the top right of the screen the control
     SLIDE_TOP_RIGHT = 9,
+    ## Move to/from the bottom left side of the screen the control
     SLIDE_BOTTOM_LEFT = 10,
+    ## Move to/from the bottom right side of the screen the control
     SLIDE_BOTTOM_RIGHT= 11
 }
 
@@ -73,14 +89,27 @@ enum TransitionType {
 
 @export var auto_start:bool = true
 
+@export_category("Animation")
+## Animation use to show controls
 @export var show_animation:AnimationType = AnimationType.FADE
+## Animation use to hide controls
 @export var hide_animation:AnimationType = AnimationType.FADE
+## Delay to way before starting the next control animation.
 @export var delay_between_animations:float = 0.0
+## Animation duration by control. If you animate 5 control with an animation duration set to [code]0.2[/code],
+## the total animation time will be [code]1.0[/code] seconds.
 @export var animation_duration:float = 0.4
+## Transition type to apply to animations
 @export var transition_type:TransitionType = TransitionType.TRANS_LINEAR
+## Ease type to apply to animations
 @export var ease_type:EaseType = EaseType.EASE_IN_OUT
 
+@export_category("Controls")
+## List of controls to animate. Control order is important since they will be animated on the same order
+## as they appear in this array.
 @export var controls:Array[Control]
+## If [code]true[/code], the control pivot offset is override and set to its center. It's necessary
+## for some animations like scales. If set to [code]false[/code], some animations may be broken.
 @export var override_pivot_offset:bool = true
 
 #------------------------------------------
@@ -111,6 +140,7 @@ func _ready() -> void:
 # Public functions
 #------------------------------------------
 
+## Show all controls with the programmed animation.
 func show() -> void:
     for control in controls:
         # In case the hide action is processing, stop all !
@@ -120,6 +150,7 @@ func show() -> void:
         control.get_meta(_META_SHOW_INITIALIZER).call()
         control.get_meta(_META_SHOW_TWEEN).play()
 
+## Hide all controls with the programmed animation.
 func hide() -> void:
     #Just play all tweens, controls properties will just remain in current state
     for control in controls:

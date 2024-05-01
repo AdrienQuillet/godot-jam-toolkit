@@ -10,8 +10,7 @@ script = ExtResource("1_u51qp")
 
 [node name="HGuiAnimator" type="Node" parent="." node_paths=PackedStringArray("controls")]
 script = ExtResource("3_603e0")
-show_animation = 8
-hide_animation = 11
+hide_animation = 1
 delay_between_animations = 0.2
 animation_duration = 0.7
 transition_type = 1
