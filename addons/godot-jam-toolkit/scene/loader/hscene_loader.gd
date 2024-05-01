@@ -1,5 +1,5 @@
 extends Node
-# Autoload
+class_name HSceneLoader
 
 ##
 ## Utility to load scenes and instantiates nodes asynchronously.
@@ -45,10 +45,16 @@ signal on_scene_instantiation_failed(scene_path:String)
 var _loading_scenes:Dictionary = {}
 # Pool of threads to load scenes
 var _thread_pool:HThreadPool = HThreadPool.new(DEFAULT_THREAD_POOL_SIZE, false)
+# To keep references during a certain amount of time, for promises
+var _referencer:HReferencer
 
 #------------------------------------------
 # Godot override functions
 #------------------------------------------
+
+func _ready():
+    _referencer = HReferencer.new()
+    add_child(_referencer)
 
 func _process(delta: float) -> void:
     if _loading_scenes.is_empty():
@@ -66,6 +72,11 @@ func _process(delta: float) -> void:
                 _handle_scene_load_failed(scene_path)
             ResourceLoader.ThreadLoadStatus.THREAD_LOAD_FAILED:
                 _handle_scene_load_failed(scene_path)
+
+func _notification(what):
+    if what == NOTIFICATION_PREDELETE:
+        _thread_pool.shutdown()
+        _thread_pool = null
 
 #------------------------------------------
 # Public functions
@@ -126,7 +137,7 @@ func _handle_scene_loaded(scene_path:String) -> void:
     # Explicitly reference this promise in the referencer to avoid premature GC
     # If user did not store a reference to this promise and just connect to its signals,
     # then the promise can be GC before next frame
-    HReferencer.register(promise, 1_000)
+    _referencer.register(promise, 1_000)
     emit_signal.call_deferred("on_scene_load_progress", scene_path, 1.0)
     emit_signal.call_deferred("on_scene_load_finished", scene_path, scene)
 
@@ -140,7 +151,7 @@ func _handle_scene_load_failed(scene_path:String) -> void:
     # Explicitly reference this promise in the referencer to avoid premature GC
     # If user did not store a reference to this promise and just connect to its signals,
     # then the promise can be GC before next frame
-    HReferencer.register(promise, 1_000)
+    _referencer.register(promise, 1_000)
     emit_signal.call_deferred("on_scene_load_failed", scene_path)
 
 func _on_scene_loaded_ready_to_instantiate(scene:PackedScene, scene_path:String, instance_promise:HPromise) -> void:
@@ -148,13 +159,13 @@ func _on_scene_loaded_ready_to_instantiate(scene:PackedScene, scene_path:String,
     # the instance promise that has been given to the user
     var pool_promise:HPromise = _thread_pool.submit(scene.instantiate)
     pool_promise.rejected.connect(func():
-        HReferencer.unregister(pool_promise)
+        _referencer.unregister(pool_promise)
         instance_promise._reject_immediatly()
         on_scene_instantiation_failed.emit())
     pool_promise.resolved.connect(func(res):
-        HReferencer.unregister(pool_promise)
+        _referencer.unregister(pool_promise)
         instance_promise._resolve_immediatly(res)
         on_scene_instantiation_finished.emit(scene_path, res))
 
     # Since nobody maintains a reference to this promise, keep it in the referencer until it's completed
-    HReferencer.register(pool_promise, 1_000_000)
+    _referencer.register(pool_promise, 1_000_000)

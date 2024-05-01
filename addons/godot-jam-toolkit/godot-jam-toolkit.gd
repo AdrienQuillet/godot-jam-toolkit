@@ -1,18 +1,34 @@
 @tool
 extends EditorPlugin
 
-const SINGLETONS:Dictionary = {
-    "HReferencer" : "res://addons/godot-jam-toolkit/reference/hreferencer.gd",
-    "HSceneLoader" : "res://addons/godot-jam-toolkit/scene/loader/hscene_loader.gd",
-    "HSceneChanger" : "res://addons/godot-jam-toolkit/scene/changer/hscene_changer.gd",
-    "HAudioManager" : "res://addons/godot-jam-toolkit/audio/haudio_manager.gd"
+const CUSTOM_TYPES:Dictionary = {
+    "HReferencer": {
+        "base_type": "Node",
+        "script_path": preload("res://addons/godot-jam-toolkit/reference/hreferencer.gd"),
+        "icon_texture": null
+    },
+    "HAudioManager": {
+        "base_type": "Node",
+        "script_path": preload("res://addons/godot-jam-toolkit/audio/haudio_manager.gd"),
+        "icon_texture": null
+    },
+    "HSceneLoader": {
+        "base_type": "Node",
+        "script_path": preload("res://addons/godot-jam-toolkit/scene/loader/hscene_loader.gd"),
+        "icon_texture": null
+    },
+    "HSceneChanger": {
+        "base_type": "Node",
+        "script_path": preload("res://addons/godot-jam-toolkit/scene/changer/hscene_changer.gd"),
+        "icon_texture": null
+    }
 }
 
 func _enter_tree() -> void:
-    for singleton_name in SINGLETONS:
-        add_autoload_singleton(singleton_name, SINGLETONS[singleton_name])
-
+    for custom_type_name in CUSTOM_TYPES:
+        var custom_type_data:Dictionary = CUSTOM_TYPES[custom_type_name]
+        add_custom_type(custom_type_name, custom_type_data.base_type, custom_type_data.script, custom_type_data.icon_texture)
 
 func _exit_tree() -> void:
-    for singleton_name in SINGLETONS:
-        remove_autoload_singleton(singleton_name)
+    for custom_type_name in CUSTOM_TYPES:
+        remove_custom_type(custom_type_name)

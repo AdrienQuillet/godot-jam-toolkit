@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://mcb0bwdko1k7"]
 
-[ext_resource type="Script" path="res://demo/scene/change/main.gd" id="1_6rn45"]
-[ext_resource type="Texture2D" uid="uid://dxav5yu1oppna" path="res://demo/scene/change/assets/background01.jpg" id="1_rr8fh"]
+[ext_resource type="Script" path="res://demo/scene/changer/scene01.gd" id="1_dmcg3"]
+[ext_resource type="Texture2D" uid="uid://dxav5yu1oppna" path="res://demo/scene/changer/assets/background01.jpg" id="3_mcw5t"]
 
-[node name="Main" type="Node2D"]
-script = ExtResource("1_6rn45")
+[node name="Scene01" type="Node2D"]
+script = ExtResource("1_dmcg3")
 
 [node name="Background01" type="Sprite2D" parent="."]
 position = Vector2(570, 337)
 scale = Vector2(1.18035, 1.18035)
-texture = ExtResource("1_rr8fh")
+texture = ExtResource("3_mcw5t")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 427.0

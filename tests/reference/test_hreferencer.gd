@@ -3,7 +3,7 @@ extends GutTest
 var _referencer
 
 func before_each():
-    _referencer = preload("res://addons/godot-jam-toolkit/reference/hreferencer.gd").new()
+    _referencer = HReferencer.new()
     add_child_autoqfree(_referencer)
     watch_signals(_referencer)
 

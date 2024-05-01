@@ -1,6 +1,6 @@
 ## AudioManager
 
-The `HAudioManager` is an expertly crafted autoload class designed for managing audio in Godot-powered games. This class provides a robust framework for not only playing back audio assets like sounds and music but also for intricate sound effects management. You can orchestrate audio on various buses and control playback with an incredible degree of precision through designated channels.
+The `HAudioManager` is an expertly crafted node designed for managing audio in Godot-powered games. This class provides a robust framework for not only playing back audio assets like sounds and music but also for intricate sound effects management. You can orchestrate audio on various buses and control playback with an incredible degree of precision through designated channels.
 
 ### Overview of Functionalities
 
@@ -11,7 +11,7 @@ The `HAudioManager` simplifies audio management, offering straightforward method
 To play a sound, the `HAudioManager` utilizes the `play_audio` method. This method elegantly handles audio playback on specific buses, with optional parameters for fade-in effects and channel targeting, ensuring that your audio is not just heard, but felt. For instance, to play a sound on the `master` bus with a gentle fade-in, one would execute:
 
 ```gdscript
-HAudioManager.play_audio("master", my_audio_stream, fade_in=0.5)
+audio_manager.play_audio("master", my_audio_stream, 0.5)
 ```
 
 This line of code effortlessly plays the `my_audio_stream` on the `master` bus, introducing the sound with a 0.5 seconds fade-in, adding a smooth entrance to your audio experience.
@@ -21,7 +21,7 @@ This line of code effortlessly plays the `my_audio_stream` on the `master` bus, 
 Changing the volume of a bus is equally simple. The method `set_volume` offers you the capability to specify the volume as a percentage, which the system then converts into decibels:
 
 ```gdscript
-HAudioManager.set_volume("Main", 0.75)
+audio_manager.set_volume("Main", 0.75)
 ```
 
 This adjusts the `master` bus volume to 75% of its capacity, perfect for scenarios where audio needs to be dynamically controlled, perhaps during quieter in-game moments.
@@ -31,8 +31,8 @@ This adjusts the `master` bus volume to 75% of its capacity, perfect for scenari
 The `HAudioManager` also provides functionality to interact with different audio output devices. Using `get_output_devices`, you can retrieve a list of all connected audio outputs, and with `set_output_device`, you can switch output devices on the fly:
 
 ```gdscript
-var devices = HAudioManager.get_output_devices()
-HAudioManager.set_output_device(devices[0])
+var devices = audio_manager.get_output_devices()
+audio_manager.set_output_device(devices[0])
 ```
 
 This flexibility allows for seamless integration of audio across various hardware setups, ensuring your game sounds great, no matter the platform.
@@ -44,7 +44,7 @@ Sometimes, you need to quickly mute certain sounds or even all audio to respond 
 Furthermore, to adapt the audio playback to different game speeds, you can use `set_playback_speed_scale` to speed up or slow down all audio correspondingly:
 
 ```gdscript
-HAudioManager.set_playback_speed_scale(1.5)
+audio_manager.set_playback_speed_scale(1.5)
 ```
 
 This increases the playback speed by 50%, aligning the audio tempo with faster-paced gameplay scenarios.
@@ -175,7 +175,7 @@ Here's an enriched and detailed documentation suitable for an online repository,
 ## HSceneLoader
 
 
-The `HSceneLoader` is a powerful autoload utility designed to enhance game performance and responsiveness by loading and instantiating scenes asynchronously in Godot. This utility is especially useful in large projects where managing scene loading times is crucial for maintaining a smooth user experience.
+The `HSceneLoader` is a powerful node utility designed to enhance game performance and responsiveness by loading and instantiating scenes asynchronously in Godot. This utility is especially useful in large projects where managing scene loading times is crucial for maintaining a smooth user experience.
 
 ### Features
 
@@ -199,7 +199,7 @@ The `HSceneLoader` is a powerful autoload utility designed to enhance game perfo
 For scenarios where blocking is acceptable, such as during a loading screen:
 
 ```gdscript
-var scene = HSceneLoader.immediate_load_scene("res://path/to/scene.tscn")
+var scene = scene_loader.immediate_load_scene("res://path/to/scene.tscn")
 ```
 
 This method blocks the current thread until the scene is fully loaded.
@@ -209,7 +209,7 @@ This method blocks the current thread until the scene is fully loaded.
 To load a scene without blocking, allowing gameplay or animations to continue uninterrupted:
 
 ```gdscript
-var promise:HPromise = HSceneLoader.async_load_scene("res://path/to/scene.tscn")
+var promise:HPromise = scene_loader.async_load_scene("res://path/to/scene.tscn")
 promise.resolved.connect(_on_scene_loaded)
 ```
 
@@ -220,7 +220,7 @@ This approach utilizes a promise pattern, where `resolved` and `rejected` signal
 To asynchronously instantiate a scene after loading:
 
 ```gdscript
-var promise:HPromise = HSceneLoader.async_scene_instantiate("res://path/to/scene.tscn")
+var promise:HPromise = scene_loader.async_scene_instantiate("res://path/to/scene.tscn")
 promise.resolved.connect(_on_scene_instance_ready)
 ```
 
@@ -240,7 +240,7 @@ Here's a narrative and comprehensive documentation for the `SceneChanger` class,
 
 ## HSceneChanger
 
-`HSceneChanger` is an autoload utility designed for Godot, which facilitates smooth and visually appealing transitions between scenes. It leverages a variety of animation textures and effects to enhance the user experience during scene changes, making transitions seamless and engaging.
+`HSceneChanger` is a node utility designed for Godot, which facilitates smooth and visually appealing transitions between scenes. It leverages a variety of animation textures and effects to enhance the user experience during scene changes, making transitions seamless and engaging.
 
 ### Key Features
 
@@ -268,7 +268,7 @@ Here are a few examples of how to use the `HSceneChanger` to transition between 
 To change from the current scene to a new scene with a fade-out effect:
 
 ```gdscript
-HSceneChanger.fade_out("res://new_scene.tscn")
+scene_changer.fade_out("res://new_scene.tscn")
 ```
 
 #### Custom Blend Transition
@@ -276,7 +276,7 @@ HSceneChanger.fade_out("res://new_scene.tscn")
 To use a custom texture for a visually striking transition:
 
 ```gdscript
-HSceneChanger.blend("res://new_scene.tscn", preload("res://textures/custom_transition.png"))
+scene_changer.blend("res://new_scene.tscn", preload("res://textures/custom_transition.png"))
 ```
 
 #### Asynchronous Scene Loading
@@ -284,7 +284,7 @@ HSceneChanger.blend("res://new_scene.tscn", preload("res://textures/custom_trans
 `HSceneChanger` can handle scene transitions asynchronously to avoid gameplay interruptions:
 
 ```gdscript
-HSceneChanger.fade_in("res://new_scene.tscn")
+scene_changer.fade_in("res://new_scene.tscn")
 ```
 
 This method will preload the new scene in the background before executing the transition.
@@ -298,5 +298,5 @@ This method will preload the new scene in the background before executing the tr
 To transition to a new scene using the `rain` texture:
 
 ```gdscript
-HSceneChanger.rain("res://next_scene.tscn")
+scene_changer.rain("res://next_scene.tscn")
 ```

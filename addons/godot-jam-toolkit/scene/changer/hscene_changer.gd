@@ -1,5 +1,5 @@
 extends Node
-# Autoload
+class_name HSceneChanger
 
 ##
 ## Utility to change from one scene to another with transitions
@@ -52,6 +52,8 @@ enum ChangeMode {
 # Exports
 #------------------------------------------
 
+@export var root_container:Node
+
 #------------------------------------------
 # Public variables
 #------------------------------------------
@@ -63,18 +65,22 @@ enum ChangeMode {
 var _fader_node:Fader
 var _new_scene_instance:Node
 var _scene_promise:HPromise
-var _root:Node
 
 var _mode:ChangeMode
 var _duration:float
 var _color:Color
+
+var _scene_loader:HSceneLoader
 
 #------------------------------------------
 # Godot override functions
 #------------------------------------------
 
 func _ready() -> void:
-    _root = get_tree().root
+    _scene_loader = HSceneLoader.new()
+    add_child(_scene_loader)
+    if root_container == null:
+        root_container = get_tree().root
     _fader_node = preload(FADER_SCENE_PATH).instantiate()
     add_child(_fader_node)
 
@@ -176,7 +182,7 @@ func _change_scene_to(scene_path:String, mode:ChangeMode = ChangeMode.FADE_OUT_I
     _clean_state()
 
     # Always load the future scene !
-    _scene_promise = HSceneLoader.async_scene_instantiate(scene_path)
+    _scene_promise = _scene_loader.async_scene_instantiate(scene_path)
     _scene_promise.resolved.connect(_on_new_scene_instantiated)
 
     # Depending on mode, things can change
@@ -203,9 +209,9 @@ func _clean_state() -> void:
 
 func _on_new_scene_instantiated(scene_instance:Node) -> void:
     _new_scene_instance = scene_instance
-    var current_scene_index:int = _root.get_children().find(get_tree().current_scene)
-    _root.add_child(_new_scene_instance)
-    _root.move_child(_new_scene_instance, current_scene_index)
+    var current_scene_index:int = root_container.get_children().find(_get_current_scene_node())
+    root_container.add_child(_new_scene_instance)
+    root_container.move_child(_new_scene_instance, current_scene_index)
 
     if _fader_node.is_stopped() or _mode == ChangeMode.BLEND:
         _do_change_scene()
@@ -215,8 +221,9 @@ func _on_fader_stopped() -> void:
         _do_change_scene()
 
 func _do_change_scene() -> void:
-    _root.remove_child(get_tree().current_scene)
-    get_tree().current_scene = _new_scene_instance
+    root_container.remove_child(_get_current_scene_node())
+    if root_container == get_tree().root:
+        get_tree().current_scene = _new_scene_instance
     _new_scene_instance = null
 
     match _mode:
@@ -228,3 +235,12 @@ func _do_change_scene() -> void:
             _fader_node.fade_in(_duration, _color)
         ChangeMode.BLEND:
             pass # Nothing to do
+
+func _get_current_scene_node() -> Node:
+    for i in range(root_container.get_child_count() - 1, -1, -1):
+        var node:Node = root_container.get_child(i)
+        if (not node is HSceneLoader):
+            return node
+
+    push_error("Unable to determine current scene")
+    return null
