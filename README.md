@@ -300,3 +300,78 @@ To transition to a new scene using the `rain` texture:
 ```gdscript
 scene_changer.rain("res://next_scene.tscn")
 ```
+
+Here is a comprehensive and detailed Markdown documentation for the `HGuiAnimator` class, a Godot utility designed to animate GUI elements in sophisticated and visually appealing ways.
+
+---
+
+## `HGuiAnimator`
+
+`HGuiAnimator` is a utility node for Godot designed to synchronize and animate multiple control nodes simultaneously, providing a rich set of animations for showing and hiding UI elements. This tool is ideal for creating dynamic menus, pop-up dialogs, and interactive UI elements that require smooth and engaging transitions.
+
+### Features
+
+- **Multiple Animation Types**: Supports various animations such as fading, scaling, and sliding from different directions.
+- **Customizable Animation Parameters**: Offers detailed control over animation duration, delay, easing, and transition effects.
+- **Sequential Animation Execution**: Animations can be executed in sequence with a specified delay between each, enhancing the visual appeal.
+- **Event-Driven**: Provides signals that notify when animations start and end, both for showing and hiding.
+
+### Animation Types
+
+`HGuiAnimator` supports a variety of animations for both showing and hiding GUI elements:
+
+- **Fade**: Change the alpha channel to create a fade-in or fade-out effect.
+- **Scale**: Uniform scaling or along specific axes.
+- **Slide**: Move elements from off-screen edges (top, bottom, left, right, or corners).
+- Each animation type can be customized for appearance (show) or disappearance (hide) actions.
+
+### Properties
+
+- `auto_start`: Automatically starts the show animation when ready.
+- `show_animation`, `hide_animation`: Determines the type of animation used for showing or hiding the GUI controls.
+- `delay_between_animations`: Sets the delay between start times of animations for individual controls.
+- `animation_duration`: Duration of each control’s animation.
+- `transition_type`: Type of interpolation used for the animations.
+- `ease_type`: Specifies the easing function to smooth out the animation.
+- `controls`: Array of Control nodes to be animated. The order in the array implies the order of animation.
+- `override_pivot_offset`: When set, automatically adjusts each control’s pivot to its center, necessary for certain types of animations like scale.
+
+### Usage
+
+#### Basic Setup
+
+1. **Add Controls**: Populate the `controls` array with the GUI elements you want to animate.
+2. **Configure Animations**: Set `show_animation` and `hide_animation` to your desired types.
+3. **Adjust Timing**: Set `animation_duration` and `delay_between_animations` as needed.
+
+#### Example
+
+Here’s a simple example to fade in a series of menu buttons:
+
+```gdscript
+var gui_animator = HGuiAnimator.new()
+gui_animator.controls = [button1, button2, button3]
+gui_animator.show_animation = HGuiAnimator.AnimationType.FADE
+gui_animator.animation_duration = 0.5
+gui_animator.delay_between_animations = 0.2
+add_child(gui_animator)
+gui_animator.show()
+```
+
+#### Advanced Usage
+
+Combine different animation types for show and hide actions to create engaging UI interactions:
+
+```gdscript
+gui_animator.show_animation = HGuiAnimator.AnimationType.SLIDE_TOP
+gui_animator.hide_animation = HGuiAnimator.AnimationType.FADE
+gui_animator.ease_type = HGuiAnimator.EaseType.EASE_OUT_IN
+gui_animator.transition_type = HGuiAnimator.TransitionType.TRANS_QUAD
+```
+
+### Signals
+
+- `show_started`: Emitted when the show animation starts.
+- `show_finished`: Emitted when all show animations have completed.
+- `hide_started`: Emitted when the hide animation starts.
+- `hide_finished`: Emitted when all hide animations have completed.
