@@ -83,6 +83,15 @@ enum TransitionType {
 # Signals
 #------------------------------------------
 
+## Emitted when the [method show] method is invoked and show animation is starting
+signal show_started
+## Emitted when the show animation is finished
+signal show_finished
+## Emitted when the [method hide] method is invoked and hide animation is starting
+signal hide_started
+## Emitted when the hide animation is finished
+signal hide_finished
+
 #------------------------------------------
 # Exports
 #------------------------------------------
@@ -120,6 +129,13 @@ enum TransitionType {
 # Private variables
 #------------------------------------------
 
+# Tells if the show animation is running
+var _is_showing:bool = false
+# Tells if the hide animation is running
+var _is_hiding:bool = false
+# Tells the number of finished animation in the current animation sequence
+var _finished_animation_count:int = 0
+
 #------------------------------------------
 # Godot override functions
 #------------------------------------------
@@ -142,6 +158,12 @@ func _ready() -> void:
 
 ## Show all controls with the programmed animation.
 func show() -> void:
+    if _is_hiding:
+        _is_hiding = false
+        hide_finished.emit()
+
+    _is_showing = true
+    _finished_animation_count = 0
     for control in controls:
         # In case the hide action is processing, stop all !
         if control.get_meta(_META_HIDE_TWEEN).is_running():
@@ -149,12 +171,20 @@ func show() -> void:
         control.get_meta(_META_HIDE_RESETER).call()
         control.get_meta(_META_SHOW_INITIALIZER).call()
         control.get_meta(_META_SHOW_TWEEN).play()
+    show_started.emit()
 
 ## Hide all controls with the programmed animation.
 func hide() -> void:
+    if _is_showing:
+        _is_showing = false
+        show_finished.emit()
+
+    _is_hiding = true
+    _finished_animation_count = 0
     #Just play all tweens, controls properties will just remain in current state
     for control in controls:
         control.get_meta(_META_HIDE_TWEEN).play()
+    hide_started.emit()
 
 #------------------------------------------
 # Private functions
@@ -393,4 +423,16 @@ func _create_tween(control:Control, delay:float, meta_prop:String, animator_call
         .default_ease(HTween.EaseType.get(EaseType.keys()[ease_type])) \
         .new_step() \
             .tween_interval(delay)
-    control.set_meta(meta_prop, animator_callable.call(interval_builder).build())
+    var tween:HTween = animator_callable.call(interval_builder).build()
+    tween.finished.connect(_on_control_animation_finished)
+    control.set_meta(meta_prop, tween)
+
+func _on_control_animation_finished() -> void:
+    _finished_animation_count += 1
+    if _finished_animation_count == controls.size():
+        if _is_hiding:
+            _is_hiding = false
+            hide_finished.emit()
+        if _is_showing:
+            _is_showing = false
+            show_finished.emit()

@@ -64,5 +64,9 @@ custom_minimum_size = Vector2(300, 75)
 layout_mode = 2
 text = "Menu 3"
 
+[connection signal="hide_finished" from="HGuiAnimator" to="." method="_on_h_gui_animator_hide_finished"]
+[connection signal="hide_started" from="HGuiAnimator" to="." method="_on_h_gui_animator_hide_started"]
+[connection signal="show_finished" from="HGuiAnimator" to="." method="_on_h_gui_animator_show_finished"]
+[connection signal="show_started" from="HGuiAnimator" to="." method="_on_h_gui_animator_show_started"]
 [connection signal="pressed" from="ShowButton" to="." method="_on_show_button_pressed"]
 [connection signal="pressed" from="HideButton" to="." method="_on_hide_button_pressed"]
