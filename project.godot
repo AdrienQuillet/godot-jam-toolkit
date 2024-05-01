@@ -15,6 +15,11 @@ run/main_scene="res://demo/scene/loader/main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-jam-toolkit/plugin.cfg", "res://addons/gut/plugin.cfg")

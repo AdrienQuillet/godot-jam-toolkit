@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=3 uid="uid://by6xeuqt67xw3"]
+
+[ext_resource type="Script" path="res://demo/gui/animation/main.gd" id="1_u51qp"]
+[ext_resource type="Script" path="res://addons/godot-jam-toolkit/gui/animation/hgui_animator.gd" id="3_603e0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ierba"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_u51qp")
+
+[node name="HGuiAnimator" type="Node" parent="." node_paths=PackedStringArray("controls")]
+script = ExtResource("3_603e0")
+show_animation = 8
+hide_animation = 11
+delay_between_animations = 0.2
+animation_duration = 0.7
+transition_type = 1
+controls = [NodePath("../GUI/CenterContainer/VBoxContainer/MenuButton1"), NodePath("../GUI/CenterContainer/VBoxContainer/MenuButton2"), NodePath("../GUI/CenterContainer/VBoxContainer/MenuButton3")]
+
+[node name="ShowButton" type="Button" parent="."]
+offset_left = 485.0
+offset_top = 32.0
+offset_right = 565.0
+offset_bottom = 63.0
+text = "Show"
+
+[node name="HideButton" type="Button" parent="."]
+offset_left = 582.0
+offset_top = 32.0
+offset_right = 672.0
+offset_bottom = 63.0
+text = "Hide"
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MenuButton1" type="Button" parent="GUI/CenterContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_ierba")
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+text = "Menu 1"
+
+[node name="MenuButton2" type="Button" parent="GUI/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+text = "Menu 2"
+
+[node name="MenuButton3" type="Button" parent="GUI/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+text = "Menu 3"
+
+[connection signal="pressed" from="ShowButton" to="." method="_on_show_button_pressed"]
+[connection signal="pressed" from="HideButton" to="." method="_on_hide_button_pressed"]
