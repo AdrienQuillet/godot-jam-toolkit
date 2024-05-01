@@ -1,5 +1,5 @@
 extends Node
-# Autoload
+class_name HReferencer
 
 ##
 ## Utility to maintain references on objects for some times, avoiding them to be garbage collected.

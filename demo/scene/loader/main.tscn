@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1ivim1wc5j4q"]
+[gd_scene load_steps=12 format=3 uid="uid://c1ivim1wc5j4q"]
 
 [ext_resource type="Script" path="res://demo/scene/loader/main.gd" id="1_yq6u1"]
+[ext_resource type="Script" path="res://addons/godot-jam-toolkit/scene/loader/hscene_loader.gd" id="2_snt5j"]
 [ext_resource type="Texture2D" uid="uid://b0nwpo5aovwbg" path="res://demo/scene/loader/assets/run-1.png" id="2_uanle"]
 [ext_resource type="Texture2D" uid="uid://duss0k348jyj7" path="res://demo/scene/loader/assets/run-2.png" id="3_plyjw"]
 [ext_resource type="Texture2D" uid="uid://gtimg2v5hptv" path="res://demo/scene/loader/assets/run-3.png" id="4_ntjxv"]
@@ -45,6 +46,9 @@ animations = [{
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yq6u1")
 metadata/_edit_vertical_guides_ = [-232.0]
+
+[node name="HSceneLoader" type="Node" parent="."]
+script = ExtResource("2_snt5j")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

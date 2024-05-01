@@ -11,7 +11,7 @@ The `HAudioManager` simplifies audio management, offering straightforward method
 To play a sound, the `HAudioManager` utilizes the `play_audio` method. This method elegantly handles audio playback on specific buses, with optional parameters for fade-in effects and channel targeting, ensuring that your audio is not just heard, but felt. For instance, to play a sound on the `master` bus with a gentle fade-in, one would execute:
 
 ```gdscript
-HAudioManager.play_audio("master", my_audio_stream, fade_in=0.5)
+HAudioManager.play_audio("master", my_audio_stream, 0.5)
 ```
 
 This line of code effortlessly plays the `my_audio_stream` on the `master` bus, introducing the sound with a 0.5 seconds fade-in, adding a smooth entrance to your audio experience.

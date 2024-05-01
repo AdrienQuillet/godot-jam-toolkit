@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7m5ldme3mj4v"]
+[gd_scene load_steps=3 format=3 uid="uid://c7m5ldme3mj4v"]
 
 [ext_resource type="Script" path="res://demo/audio/main.gd" id="1_a4ea1"]
+[ext_resource type="Script" path="res://addons/godot-jam-toolkit/audio/haudio_manager.gd" id="2_jqjlb"]
 
 [node name="Main" type="CanvasLayer"]
 script = ExtResource("1_a4ea1")
+
+[node name="HAudioManager" type="Node" parent="."]
+script = ExtResource("2_jqjlb")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -222,8 +226,8 @@ text = "Stop"
 [connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftContainer/PlaybackSpeedContainer/PlaybackSpeedSlider" to="." method="_on_playback_speed_slider_value_changed"]
 [connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftContainer/FadeContainer/FadeSlider" to="." method="_on_fade_slider_value_changed"]
 [connection signal="mouse_entered" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic1Button" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic1Button" to="." method="_on_play_music_1_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic1Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic1Button" to="." method="_on_play_music_1_button_pressed"]
 [connection signal="mouse_entered" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic2Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic2Button" to="." method="_on_play_music_2_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/LeftContainer/MusicContainer/PlayMusic2Button" to="." method="_on_button_pressed"]

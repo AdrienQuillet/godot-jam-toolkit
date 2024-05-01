@@ -20,23 +20,20 @@ extends Node2D
 # Private variables
 #------------------------------------------
 
-static var _first_time:bool = true
-static var _index:int = 0
+static var _index:int = 1
+var _scene_changer:HSceneChanger
 
 #------------------------------------------
 # Godot override functions
 #------------------------------------------
 
 func _ready() -> void:
-    if _first_time:
-        _first_time = false
-        await get_tree().create_timer(10.0).timeout
-    else:
-        await get_tree().create_timer(2.0).timeout
-    HSceneChanger.call(HSceneChanger.NATIVE_TEXTURES.keys()[_index], "res://demo/scene/change/second.tscn", 1.0)
+    _scene_changer = get_tree().get_first_node_in_group("scene_changer")
+    await get_tree().create_timer(2.0).timeout
+    _scene_changer.call(HSceneChanger.NATIVE_TEXTURES.keys()[_index], "res://demo/scene/changer/scene01.tscn", 1.0)
     _index += 2
     if _index >= HSceneChanger.NATIVE_TEXTURES.size():
-        _index = 0
+        _index = 1
 
 #------------------------------------------
 # Public functions
@@ -45,3 +42,4 @@ func _ready() -> void:
 #------------------------------------------
 # Private functions
 #------------------------------------------
+

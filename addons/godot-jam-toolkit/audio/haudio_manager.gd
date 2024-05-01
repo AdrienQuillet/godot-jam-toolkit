@@ -1,10 +1,10 @@
 extends Node
-# Autoload
+class_name HAudioManager
 
 ##
 ## Audio manager for Godot.
 ## [br][br]
-## This autoload allows to easily play sounds, musics, sfx effects in your game. Each audio can
+## This node allows to easily play sounds, musics, sfx effects in your game. Each audio can
 ## be played on a bus, and can also be played on a specific channel for a more precise audio management.
 ##
 
