@@ -4,22 +4,27 @@ extends EditorPlugin
 const CUSTOM_TYPES:Dictionary = {
     "HReferencer": {
         "base_type": "Node",
-        "script_path": preload("res://addons/godot-jam-toolkit/reference/hreferencer.gd"),
+        "script": preload("res://addons/godot-jam-toolkit/reference/hreferencer.gd"),
         "icon_texture": null
     },
     "HAudioManager": {
         "base_type": "Node",
-        "script_path": preload("res://addons/godot-jam-toolkit/audio/haudio_manager.gd"),
+        "script": preload("res://addons/godot-jam-toolkit/audio/haudio_manager.gd"),
         "icon_texture": null
     },
     "HSceneLoader": {
         "base_type": "Node",
-        "script_path": preload("res://addons/godot-jam-toolkit/scene/loader/hscene_loader.gd"),
+        "script": preload("res://addons/godot-jam-toolkit/scene/loader/hscene_loader.gd"),
         "icon_texture": null
     },
     "HSceneChanger": {
         "base_type": "Node",
-        "script_path": preload("res://addons/godot-jam-toolkit/scene/changer/hscene_changer.gd"),
+        "script": preload("res://addons/godot-jam-toolkit/scene/changer/hscene_changer.gd"),
+        "icon_texture": null
+    },
+    "HGuiAnimator": {
+        "base_type": "Node",
+        "script": preload("res://addons/godot-jam-toolkit/gui/animation/hgui_animator.gd"),
         "icon_texture": null
     }
 }

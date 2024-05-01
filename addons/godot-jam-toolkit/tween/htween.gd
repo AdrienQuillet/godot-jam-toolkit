@@ -244,6 +244,10 @@ func _get_configuration_warnings() -> PackedStringArray:
 # Public functions
 #------------------------------------------
 
+## Returns if this tween is running or not
+func is_running() -> bool:
+    return _internal_tween != null and _internal_tween.is_running()
+
 ## Starts or resume a paused or stopped tween.
 func play() -> void:
     if _internal_tween == null or not _internal_tween.is_valid():
