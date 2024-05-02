@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://qh18kwxgp2xg"]
+
+[ext_resource type="Texture2D" uid="uid://exgp77tsrmso" path="res://icon.svg" id="1_kic11"]
+[ext_resource type="Script" path="res://addons/godot-jam-toolkit/fx/hfx_shake_2d.gd" id="1_yerl8"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Icon1" type="Sprite2D" parent="."]
+position = Vector2(590, 311)
+texture = ExtResource("1_kic11")
+
+[node name="HFXShake2D" type="Node" parent="Icon1" node_paths=PackedStringArray("target_node")]
+script = ExtResource("1_yerl8")
+target_node = NodePath("..")
+shake_strength = Vector2(10, 10)
+duration = 20.0
+shake_strength_fade_in_duration = 5.0
+shake_strength_fade_out_duration = 5.0

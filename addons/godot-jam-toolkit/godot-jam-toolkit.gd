@@ -26,6 +26,11 @@ const CUSTOM_TYPES:Dictionary = {
         "base_type": "Node",
         "script": preload("res://addons/godot-jam-toolkit/gui/animation/hgui_animator.gd"),
         "icon_texture": null
+    },
+    "HFXShake2D": {
+        "base_type": "Node",
+        "script": preload("res://addons/godot-jam-toolkit/fx/hfx_shake_2d.gd"),
+        "icon_texture": null
     }
 }
 
