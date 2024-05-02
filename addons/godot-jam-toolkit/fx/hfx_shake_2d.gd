@@ -1,10 +1,10 @@
-extends Node
+extends HFXBase
 class_name HFXShake2D
 
 ##
 ## Allow to shake any [Node] with a [code]position[/code] property described as a [code]Vector2[/code].
 ##
-## As all FX effects, this can be cumulated with other FX effects. Note that thos effect is not
+## As all FX effects, this can be cumulated with other FX effects. Note that this effect is not
 ## compatible with tweens that animate node position, since tweens are executed after process methods,
 ## thus they override this effect animation.
 ##
@@ -13,30 +13,13 @@ class_name HFXShake2D
 # Constants
 #------------------------------------------
 
-enum ProcessMode {
-    ## Process effect on process frame
-    PROCESS = 0,
-    ## Process effect on physics process frame
-    PHYSICS_PROCESS = 1
-}
-
 #------------------------------------------
 # Signals
 #------------------------------------------
 
-## Emitted when the FX effect starts
-signal started
-## Emitted when the FX effect is manually stopped (see [method stop]) or finished.
-signal finished
-
 #------------------------------------------
 # Exports
 #------------------------------------------
-
-## Tells if this animation immediatly starts when added to the SceneTree or not
-@export var auto_start:bool = true
-## If [code]true[/code], the FX effect is queue free when the FX is finished
-@export var queue_free_on_finish:bool = true
 
 @export_category("Animation")
 ## The node to animate. If [code]null[/code], the parent node will be the target
@@ -61,10 +44,6 @@ signal finished
 ## amount of time to reach [code]Vector2.ZERO[/code]. Can not be greater than [code]duration / 2[/code]
 @export var shake_strength_fade_out_duration:float = 0.0
 
-@export_category("Process")
-## When this effect is applied
-@export var effect_process_mode:HFXShake2D.ProcessMode = HFXShake2D.ProcessMode.PROCESS
-
 #------------------------------------------
 # Public variables
 #------------------------------------------
@@ -73,8 +52,6 @@ signal finished
 # Private variables
 #------------------------------------------
 
-# Is this effect running ?
-var _playing:bool = false
 # Duration of the animation
 var _duration:float = 0.0
 # Elapsed time since this effect has start running
@@ -88,35 +65,24 @@ var _fade_out_duration:float = 0.0
 var _last_shake_strength:Vector2
 # Potion to reached with _last_shake_strength
 var _current_target_position:Vector2
+# Is smoothing effect has to be applied ?
+var _apply_smoothing_effect:bool
+# Current iteration movement
+var _current_movement:Vector2
 
 #------------------------------------------
 # Godot override functions
 #------------------------------------------
 
-func _ready() -> void:
-    set_process(false)
-    set_physics_process(false)
-
-    if auto_start:
-        play()
-
-func _process(delta: float) -> void:
-    _process_effect(delta)
-
-func _physics_process(delta: float) -> void:
-    _process_effect(delta)
-
 #------------------------------------------
 # Public functions
 #------------------------------------------
 
-## Start the effect immediately.
-func play() -> void:
-    assert(is_inside_tree(), "Can not apply effect when effect node is not in SceneTree")
-    if _playing:
-        return
+#------------------------------------------
+# Private functions
+#------------------------------------------
 
-    _playing = true
+func _do_play() -> void:
     if target_node == null:
         target_node = get_parent()
     _ellapsed_time = 0.0
@@ -124,34 +90,9 @@ func play() -> void:
     _fade_in_duration = clamp(shake_strength_fade_in_duration, 0, duration / 2.0)
     _fade_out_duration = clamp(shake_strength_fade_out_duration, 0, duration / 2.0)
     _last_shake_strength = Vector2.ZERO
-    _current_target_position = Vector2.ZERO
-
-    if effect_process_mode == HFXShake2D.ProcessMode.PROCESS:
-        set_process(true)
-    elif effect_process_mode == HFXShake2D.ProcessMode.PHYSICS_PROCESS:
-        set_physics_process(true)
-
-    # Delete on finish if necessary
-    if queue_free_on_finish:
-        if not finished.is_connected(queue_free):
-            finished.connect(queue_free)
-
-    started.emit()
-
-## Stop the effect.
-func stop() -> void:
-    if not _playing:
-        return
-
-    _playing = false
-    set_process(false)
-    set_physics_process(false)
-
-    finished.emit()
-
-#------------------------------------------
-# Private functions
-#------------------------------------------
+    _current_target_position = target_node.position
+    _current_movement = Vector2.ZERO
+    _apply_smoothing_effect = false
 
 func _process_effect(delta:float) -> void:
     _ellapsed_time += delta
@@ -162,11 +103,13 @@ func _process_effect(delta:float) -> void:
         return
 
     # If previous target position is not reach,
-    if _last_shake_strength != Vector2.ZERO and _current_target_position != target_node.position:
-        target_node.position = _current_target_position
+    if _apply_smoothing_effect and smooth_movement:
+        _apply_smoothing_effect = false
+        target_node.position += _current_movement / 2
         return
 
     # Compute strength to apply during this frame
+    _apply_smoothing_effect = true
     var applied_strength:Vector2 = shake_strength
     if _fade_in_duration > 0 and _ellapsed_time <= _fade_in_duration:
         applied_strength = Vector2.ZERO.lerp(shake_strength, _ellapsed_time / _fade_in_duration)
@@ -185,9 +128,10 @@ func _process_effect(delta:float) -> void:
     var original_position:Vector2 = target_node.position - _last_shake_strength
     _last_shake_strength = applied_strength
     _current_target_position = original_position + _last_shake_strength
-    var movement:Vector2 = _current_target_position - target_node.position
+    _current_movement = _current_target_position - target_node.position
+    var movement:Vector2 = _current_movement
     if smooth_movement:
-        movement = Vector2.ZERO.lerp(movement, 0.5)
+        movement /= 2
 
     target_node.position += movement
 

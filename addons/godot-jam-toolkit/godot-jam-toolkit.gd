@@ -31,6 +31,16 @@ const CUSTOM_TYPES:Dictionary = {
         "base_type": "Node",
         "script": preload("res://addons/godot-jam-toolkit/fx/hfx_shake_2d.gd"),
         "icon_texture": null
+    },
+    "HFXMove2D": {
+        "base_type": "Node",
+        "script": preload("res://addons/godot-jam-toolkit/fx/hfx_move_2d.gd"),
+        "icon_texture": null
+    },
+    "HTween": {
+        "base_type": "Node",
+        "script": preload("res://addons/godot-jam-toolkit/tween/htween.gd"),
+        "icon_texture": null
     }
 }
 
