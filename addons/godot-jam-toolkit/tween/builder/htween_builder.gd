@@ -33,7 +33,7 @@ var _bind_node:Node
 #------------------------------------------
 
 func _init(bind_node:Node) -> void:
-    _tween = preload("res://addons/godot-jam-toolkit/tween/htween.tscn").instantiate()
+    _tween = HTween.new()
     _tween.configuration_mode = HTween.ConfigurationMode.ADVANCED
     _bind_node = bind_node
 
