@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://qh18kwxgp2xg"]
+[gd_scene load_steps=6 format=3 uid="uid://qh18kwxgp2xg"]
 
 [ext_resource type="Texture2D" uid="uid://exgp77tsrmso" path="res://icon.svg" id="1_r2426"]
 [ext_resource type="Script" path="res://demo/fx/main.gd" id="1_vdtn1"]
 [ext_resource type="Script" path="res://addons/godot-jam-toolkit/fx/hfx_shake_2d.gd" id="2_5hrdu"]
 [ext_resource type="Script" path="res://addons/godot-jam-toolkit/fx/hfx_move_2d.gd" id="4_1u323"]
+[ext_resource type="Script" path="res://addons/godot-jam-toolkit/fx/hfx_modulate.gd" id="5_inf06"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vdtn1")
@@ -50,7 +51,7 @@ offset_left = 490.0
 offset_top = 241.0
 offset_right = 716.0
 offset_bottom = 264.0
-text = "Shake and Move effects"
+text = "Shake and Move and Modulate effects"
 
 [node name="Icon3" type="Sprite2D" parent="."]
 position = Vector2(94, 350)
@@ -71,6 +72,31 @@ randomize_shake_strength = true
 duration = 10.0
 queue_free_on_finish = false
 
+[node name="HFXModulate" type="Node" parent="Icon3" node_paths=PackedStringArray("target_node")]
+script = ExtResource("5_inf06")
+target_node = NodePath("..")
+duration = 1.0
+queue_free_on_finish = false
+
+[node name="ModulateLabel" type="Label" parent="."]
+offset_left = 77.0
+offset_top = 447.0
+offset_right = 303.0
+offset_bottom = 470.0
+text = "Modulate with auto restart"
+
+[node name="Icon4" type="Sprite2D" parent="."]
+position = Vector2(187, 550)
+texture = ExtResource("1_r2426")
+
+[node name="HFXModulate" type="Node" parent="Icon4" node_paths=PackedStringArray("target_node")]
+script = ExtResource("5_inf06")
+target_node = NodePath("..")
+duration = 1.5
+queue_free_on_finish = false
+
 [connection signal="finished" from="Icon2/HFXMove2D" to="." method="_on_hfx_move_2d_finished"]
 [connection signal="finished" from="Icon3/HFXMove2D" to="." method="_on_hfx_move_multi_effect_finished"]
 [connection signal="finished" from="Icon3/HFXShake2D" to="." method="_on_hfx_shake_multi_effect_finished"]
+[connection signal="finished" from="Icon3/HFXModulate" to="." method="_on_hfx_modulate_multi_effect_finished"]
+[connection signal="finished" from="Icon4/HFXModulate" to="." method="_on_hfx_modulate_finished"]
